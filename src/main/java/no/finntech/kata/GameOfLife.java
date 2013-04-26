@@ -42,6 +42,8 @@ public final class GameOfLife {
             evolvedCells[i][j] = false;
         } else if(liveCount > 3) {
             evolvedCells[i][j] = false;
+        } else if(liveCount == 2 || liveCount == 3) {
+            evolvedCells[i][j] = true;
         } else {
             evolvedCells[i][j] = true;
         }

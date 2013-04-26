@@ -44,7 +44,7 @@ public final class GameOfLifeTest {
     }
 
     @Test
-    public void testOvercrowding_withTwoNeighbours() {
+    public void testOvercrowding_withFourNeighbours() {
         game.setAlive(1,1);
         game.setAlive(0,1);
         game.setAlive(2,1);
@@ -55,7 +55,7 @@ public final class GameOfLifeTest {
     }
 
     @Test
-    public void testOvercrowding_withThreeNeighbours() {
+    public void testOvercrowding_withFiveNeighbours() {
         game.setAlive(1,1);
         game.setAlive(0,1);
         game.setAlive(2,1);
@@ -63,9 +63,44 @@ public final class GameOfLifeTest {
         game.setAlive(2,2);
         game.setAlive(1,0);
         game.evolve();
+        assertThat(game.isAlive(1,1)).isFalse();
+    }
+
+    @Test
+    public void testWithTwoNeighbours() {
+        game.setAlive(1,1);
+        game.setAlive(0,1);
+        game.setAlive(2,1);
+        game.evolve();
         assertThat(game.isAlive(1,1)).isTrue();
     }
 
+    @Test
+    public void testWithThreeNeighbours() {
+        game.setAlive(1,1);
+        game.setAlive(0,1);
+        game.setAlive(2,1);
+        game.setAlive(1,2);
+        game.evolve();
+        assertThat(game.isAlive(1,1)).isTrue();
+    }
 
+    @Test
+    public void testDeadCellWithThreeNeighboursComesAlive() {
+        game.setDead(1,1);
+        game.setAlive(0,1);
+        game.setAlive(2,1);
+        game.setAlive(1,2);
+        game.evolve();
+        assertThat(game.isAlive(1,1)).isTrue();
+    }
 
+    @Test
+    public void testDeadCellWithTwoNeighboursIsStillDead() {
+        game.setDead(1,1);
+        game.setAlive(2,1);
+        game.setAlive(1,2);
+        game.evolve();
+        assertThat(game.isAlive(1,1)).isFalse();
+    }
 }
