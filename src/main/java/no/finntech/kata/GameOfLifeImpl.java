@@ -14,7 +14,7 @@ public final class GameOfLifeImpl implements GameOfLife {
 
     public static void main(String[] args) throws InterruptedException {
         GameOfLife gameOfLife = new GameOfLifeImpl(48, 48);
-        boolean[][] initialWorld = no.finntech.kata.gameoflife.gui.Worlds.trafficCirle();
+        boolean[][] initialWorld = no.finntech.kata.gameoflife.gui.Worlds.random(48,48);
         new no.finntech.kata.gameoflife.gui.Gui(gameOfLife, initialWorld).display();
     }
 
