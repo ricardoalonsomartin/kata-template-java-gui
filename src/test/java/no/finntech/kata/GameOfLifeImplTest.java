@@ -7,12 +7,12 @@ import org.junit.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public final class GameOfLifeTest {
+public final class GameOfLifeImplTest {
 
-    private GameOfLife game;
+    private GameOfLifeImpl game;
     @Before
     public void initObjects() {
-        game = new GameOfLife(3, 3);
+        game = new GameOfLifeImpl(3, 3);
     }
 
     @Test
@@ -24,14 +24,14 @@ public final class GameOfLifeTest {
     @Test
     public void testIsAlive() {
         game.setAlive(1,1);
-        assertThat(game.isAlive(1,1)).isTrue();
+        assertThat(game.isAlive(1, 1)).isTrue();
     }
 
     @Test
     public void testUnderpopulation_withoutNeighbours() {
         game.setAlive(1,1);
         game.evolve();
-        assertThat(game.isAlive(1,1)).isFalse();
+        assertThat(game.isAlive(1, 1)).isFalse();
     }
 
     @Test
@@ -40,7 +40,7 @@ public final class GameOfLifeTest {
         game.setAlive(0,1);
         game.setAlive(2,1);
         game.evolve();
-        assertThat(game.isAlive(1,1)).isTrue();
+        assertThat(game.isAlive(1, 1)).isTrue();
     }
 
     @Test
@@ -87,7 +87,7 @@ public final class GameOfLifeTest {
 
     @Test
     public void testDeadCellWithThreeNeighboursComesAlive() {
-        game.setDead(1,1);
+        game.setDead(1, 1);
         game.setAlive(0,1);
         game.setAlive(2,1);
         game.setAlive(1,2);
@@ -97,7 +97,7 @@ public final class GameOfLifeTest {
 
     @Test
     public void testDeadCellWithTwoNeighboursIsStillDead() {
-        game.setDead(1,1);
+        game.setDead(1, 1);
         game.setAlive(2,1);
         game.setAlive(1,2);
         game.evolve();

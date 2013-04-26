@@ -2,12 +2,20 @@ package no.finntech.kata;
 
 import java.awt.*;
 
-public final class GameOfLife {
+import no.finntech.kata.gameoflife.gui.GameOfLife;
+
+public final class GameOfLifeImpl implements GameOfLife {
 
     private boolean[][] cells;
 
-    public GameOfLife(int x, int y) {
+    public GameOfLifeImpl(int x, int y) {
         cells = new boolean[x][y];
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        GameOfLife gameOfLife = new GameOfLifeImpl(48, 48);
+        boolean[][] initialWorld = no.finntech.kata.gameoflife.gui.Worlds.trafficCirle();
+        new no.finntech.kata.gameoflife.gui.Gui(gameOfLife, initialWorld).display();
     }
 
     public Point getDimentions() {
@@ -84,5 +92,17 @@ public final class GameOfLife {
         }
 
         return liveCount;
+    }
+
+    @Override
+    public boolean[][] nextGeneration() {
+        evolve();
+        return cells;
+    }
+
+    @Override
+    public void init(boolean[][] booleans) {
+        cells = booleans;
+
     }
 }
