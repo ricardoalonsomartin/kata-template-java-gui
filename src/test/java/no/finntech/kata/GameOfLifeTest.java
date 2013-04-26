@@ -48,8 +48,24 @@ public final class GameOfLifeTest {
         game.setAlive(1,1);
         game.setAlive(0,1);
         game.setAlive(2,1);
+        game.setAlive(1,2);
         game.setAlive(2,2);
         game.evolve();
         assertThat(game.isAlive(1,1)).isFalse();
     }
+
+    @Test
+    public void testOvercrowding_withThreeNeighbours() {
+        game.setAlive(1,1);
+        game.setAlive(0,1);
+        game.setAlive(2,1);
+        game.setAlive(1,2);
+        game.setAlive(2,2);
+        game.setAlive(1,0);
+        game.evolve();
+        assertThat(game.isAlive(1,1)).isTrue();
+    }
+
+
+
 }

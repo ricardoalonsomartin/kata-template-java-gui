@@ -31,35 +31,51 @@ public final class GameOfLife {
         for(int i = 0; i < cells.length; i++) {
             for(int j = 0; j < cells[i].length; j++) {
                 int liveCount = countLiveNeighbours(i, j);
-                underpopulationRule(evolvedCells, i, j, liveCount);
+                checkRules(evolvedCells, i, j, liveCount);
             }
         }
         cells = evolvedCells;
     }
 
-    private void underpopulationRule(boolean[][] evolvedCells, int i, int j, long liveCount) {
+   private void checkRules(boolean[][] evolvedCells, int i, int j, long liveCount) {
         if(liveCount < 2) {
+            evolvedCells[i][j] = false;
+        } else if(liveCount > 3) {
             evolvedCells[i][j] = false;
         } else {
             evolvedCells[i][j] = true;
         }
+
     }
 
     private int countLiveNeighbours(int x, int y) {
         int liveCount = 0;
-        for(int i = x - 1; i < x + 1; i++) {
-            if(i < 0 || i > cells.length - 1) {
-                continue;
-            }
-            for(int j = y - 1; j < y +1; j++) {
-                if(j < 0 || j > cells[0].length - 1) {
-                    continue;
-                }
-                if(isAlive(i, j)) {
-                    liveCount++;
-                }
-            }
+
+        if ((x+1 < cells.length) && isAlive(x+1,y)){
+            liveCount++;
         }
+        if ((y+1 < cells[0].length) && isAlive(x,y+1)){
+            liveCount++;
+        }
+        if ((x+1 < cells.length) && (y+1 < cells[0].length) &&  isAlive(x+1,y+1)){
+            liveCount++;
+        }
+        if ((x-1 >= 0) && isAlive(x-1,y)){
+            liveCount++;
+        }
+        if ((y-1 >= 0) && isAlive(x,y-1)) {
+            liveCount++;
+        }
+        if ((x-1 >= 0) && (y-1 >= 0) && isAlive(x-1,y-1)){
+            liveCount++;
+        }
+        if ((x-1 >= 0) && (y+1 < cells[0].length) && isAlive(x-1,y+1)) {
+            liveCount++;
+        }
+        if ((x+1 < cells.length) && (y-1 >= 0) && isAlive(x+1,y-1)){
+            liveCount++;
+        }
+
         return liveCount;
     }
 }
