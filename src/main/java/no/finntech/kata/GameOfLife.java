@@ -28,8 +28,8 @@ public final class GameOfLife {
 
     public void evolve() {
         boolean[][] evolvedCells = new boolean[cells.length][cells[0].length];
-        for(int i = 0; i < cells.length; i++) {
-            for(int j = 0; j < cells[i].length; j++) {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
                 int liveCount = countLiveNeighbours(i, j);
                 checkRules(evolvedCells, i, j, liveCount);
             }
@@ -37,44 +37,49 @@ public final class GameOfLife {
         cells = evolvedCells;
     }
 
-   private void checkRules(boolean[][] evolvedCells, int i, int j, long liveCount) {
-        if(liveCount < 2) {
-            evolvedCells[i][j] = false;
-        } else if(liveCount > 3) {
-            evolvedCells[i][j] = false;
-        } else if(liveCount == 2 || liveCount == 3) {
-            evolvedCells[i][j] = true;
-        } else {
-            evolvedCells[i][j] = true;
-        }
+    private void checkRules(boolean[][] evolvedCells, int i, int j, long liveCount) {
 
+        if (isAlive(i, j)) {
+            if (liveCount < 2) {
+                evolvedCells[i][j] = false;
+
+            } else if (liveCount > 3) {
+                evolvedCells[i][j] = false;
+            } else if (liveCount == 2 || liveCount == 3) {
+                evolvedCells[i][j] = true;
+            }
+        } else {
+            if (liveCount == 3) {
+                evolvedCells[i][j] = true;
+            }
+        }
     }
 
     private int countLiveNeighbours(int x, int y) {
         int liveCount = 0;
 
-        if ((x+1 < cells.length) && isAlive(x+1,y)){
+        if ((x + 1 < cells.length) && isAlive(x + 1, y)) {
             liveCount++;
         }
-        if ((y+1 < cells[0].length) && isAlive(x,y+1)){
+        if ((y + 1 < cells[0].length) && isAlive(x, y + 1)) {
             liveCount++;
         }
-        if ((x+1 < cells.length) && (y+1 < cells[0].length) &&  isAlive(x+1,y+1)){
+        if ((x + 1 < cells.length) && (y + 1 < cells[0].length) && isAlive(x + 1, y + 1)) {
             liveCount++;
         }
-        if ((x-1 >= 0) && isAlive(x-1,y)){
+        if ((x - 1 >= 0) && isAlive(x - 1, y)) {
             liveCount++;
         }
-        if ((y-1 >= 0) && isAlive(x,y-1)) {
+        if ((y - 1 >= 0) && isAlive(x, y - 1)) {
             liveCount++;
         }
-        if ((x-1 >= 0) && (y-1 >= 0) && isAlive(x-1,y-1)){
+        if ((x - 1 >= 0) && (y - 1 >= 0) && isAlive(x - 1, y - 1)) {
             liveCount++;
         }
-        if ((x-1 >= 0) && (y+1 < cells[0].length) && isAlive(x-1,y+1)) {
+        if ((x - 1 >= 0) && (y + 1 < cells[0].length) && isAlive(x - 1, y + 1)) {
             liveCount++;
         }
-        if ((x+1 < cells.length) && (y-1 >= 0) && isAlive(x+1,y-1)){
+        if ((x + 1 < cells.length) && (y - 1 >= 0) && isAlive(x + 1, y - 1)) {
             liveCount++;
         }
 
