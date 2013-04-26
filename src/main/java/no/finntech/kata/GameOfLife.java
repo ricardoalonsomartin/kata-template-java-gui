@@ -13,4 +13,12 @@ public final class GameOfLife {
     public Point getDimentions() {
         return new Point(cells.length, cells[0].length);
     }
+
+    public void setAlive(int x, int y) {
+        cells[x][y] = true;
+    }
+
+    public boolean isAlive(int x, int y) {
+        return cells[x][y];
+    }
 }
